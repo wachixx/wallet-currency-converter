@@ -78,12 +78,14 @@ const ExchangeForm = () =>  {
         balances[walletToValues].balance =  parseFloat(balances[walletToValues].balance) + parseFloat(amountTo);
        
         dispatch({type:"OVERRIDE",key:"walletData", payload:balances});
+        setFromAmount("");
+        setToAmount("");
     }
 
 
     const handleUpdateBalances = () =>{
         let obj = state.walletData.find(o => o.wallet === fromCurrency);
-        if(toAmount > obj.balance){
+        if(toAmount > obj.balance && obj.balance >= 0){
             setError("Amount Exceeded");
          }
          updateBalances(fromCurrency, fromAmount, toCurrency, toAmount);
